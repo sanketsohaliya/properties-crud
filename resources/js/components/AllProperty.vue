@@ -6,16 +6,43 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Detail</th>
-                <!-- <th>Actions</th> -->
+                <th>County</th>
+                <th>Country</th>
+                <th>Town</th>
+                <th>Postcode</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Thumbnail</th>
+                <th>Address</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Number Of Bedrooms</th>
+                <th>Number of Bathrooms</th>
+                <th>Price</th>
+                <th>Property Type</th>
+                <th>For Sale</th>
+                <th>For Rent</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="property in propertis" :key="property.id">
+            <tr v-for="property in properties" :key="property.id">
                 <td>{{ property.id }}</td>
-                <td>{{ property.name }}</td>
-                <td>{{ property.detail }}</td>
+                <td>{{ property.county }}</td>
+                <td>{{ property.country }}</td>
+                <td>{{ property.town }}</td>
+                <td>{{ property.postcode }}</td>
+                <td>{{ property.description }}</td>
+                <td>{{ property.image_full }}</td>
+                <td>{{ property.image_thumbnail }}</td>
+                <td>{{ property.address }}</td>
+                <td>{{ property.latitude }}</td>
+                <td>{{ property.longitude }}</td>
+                <td>{{ property.num_bedrooms }}</td>
+                <td>{{ property.num_bathrooms }}</td>
+                <td>{{ property.price }}</td>
+                <td>{{ property.property_type }}</td>
+                <td>{{ property.for_sale }}</td>
+                <td>{{ property.for_rent }}</td>
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'edit', params: { id: property.id }}" class="btn btn-success">Edit</router-link>
