@@ -85,12 +85,16 @@
                 }
                 axios
                     .post('http://localhost:8000/api/properties', form_data)
-                    .then(response => (
-                        alert(response.data.errors[0])
-                    ))
+                    .then(response => {
+                        if (response.data.hasOwnProperty('errors')) {
+                            alert(response.data.errors);
+                        } else {
+                            alert(response.data.success);
+                            this.$router.push({name: 'home'});
+                        }
+                    })
                     .catch(err => console.log(err))
                     .finally(() => this.loading = false)
-                
             },
             onChange(e) {
                 this.file = e.target.files[0];
