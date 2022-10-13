@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\PropertyController;
 
 class UpsertProperties extends Command
 {
@@ -28,8 +29,7 @@ class UpsertProperties extends Command
      */
     public function handle()
     {
-        $response = Http::get('https://trial.craig.mtcserver15.com/api/properties?page[number]=1&page[size]=100&api_key=3NLTTNlXsi6rBWl7nYGluOdkl2htFHug');
-        return $response;
-        // return Command::SUCCESS;
+        $controller = new PropertyController();
+        $controller->upsert();
     }
 }

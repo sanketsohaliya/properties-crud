@@ -170,7 +170,7 @@
                     this.properties = response.data;
                     this.properties.forEach(function(property) {
                         property.image_full = "<img height='100' width='100' src='" + property.image_full + "' />";
-                        property.image_thumbnail = "<img src='" + property.image_thumbnail + "' />";
+                        property.image_thumbnail = "<img height='100' width='100' src='" + property.image_thumbnail + "' />";
                         property.sale = property.for_sale === 1 ? "Yes" : "No";
                         property.rent = property.for_sale === 1 ? "No" : "Yes";
                         property.edit = "<button class='btn btn-info'>Edit</button>";

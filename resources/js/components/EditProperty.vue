@@ -7,46 +7,52 @@
                     <div class="form-group">
                         <label>County</label>
                         <input type="text" class="form-control" v-model="property.county">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Country</label>
                         <input type="text" class="form-control" v-model="property.country">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Town</label>
                         <input type="text" class="form-control" v-model="property.town">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Postcode</label>
                         <input type="text" class="form-control" v-model="property.postcode">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea v-model="property.description" cols="73"></textarea>
-                    </div>
+                        <textarea v-model="property.description" class="form-control"></textarea>
+                    </div><br />
                     <div class="form-group">
                         <label>Displayable Address</label>
                         <input type="text" class="form-control" v-model="property.address">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Upload Image</label>
                         <input type="file" class="form-control" v-on:change="onChange">
-                    </div>
+                    </div><br />
                     <div class="form-group">
-                        <label>Number of Bedrooms</label>
-                        <input type="number" class="form-control" v-model="property.num_bedrooms">
-                    </div>
+                        <label>Number of bedrooms</label>
+                        <select v-model="property.num_bedrooms" class="form-select">
+                            <option disabled value="">Please select one</option>
+                            <option v-for="n in 12">{{ n }}</option>
+                        </select>
+                    </div><br />
                     <div class="form-group">
-                        <label>Number of Bathrooms</label>
-                        <input type="number" class="form-control" v-model="property.num_bathrooms">
-                    </div>
+                        <label>Number of bathrooms</label>
+                        <select v-model="property.num_bathrooms" class="form-select">
+                            <option disabled value="">Please select one</option>
+                            <option v-for="n in 12">{{ n }}</option>
+                        </select>
+                    </div><br />
                     <div class="form-group">
                         <label>Price</label>
                         <input type="text" class="form-control" v-model="property.price">
                     </div><br />
                     <div class="form-group">
-                        <label>Select Property Type: </label>
-                        <select v-model="property.property_type">
+                        <label>Select Property Type</label>
+                        <select v-model="property.property_type" class="form-select">
                             <option disabled value="">Please select one</option>
                             <option>Flat</option>
                             <option>Detatched</option>
