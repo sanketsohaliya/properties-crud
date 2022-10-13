@@ -45,16 +45,21 @@
                         <input type="text" class="form-control" v-model="property.price">
                     </div>
                     <div class="form-group">
-                        <label>Property Type</label>
-                        <input type="text" class="form-control" v-model="property.property_type">
+                        <label>Select Property Type: </label>
+                        <select v-model="property.property_type">
+                            <option disabled value="">Please select one</option>
+                            <option>Flat</option>
+                            <option>Detatched</option>
+                            <option>Semi-detached</option>
+                            <option>Terraced</option>
+                            <option>End of Terrace</option>
+                            <option>Cottage</option>
+                            <option>Bungalow</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>For Sale</label>
-                        <input type="text" class="form-control" v-model="property.for_sale">
-                    </div>
-                    <div class="form-group">
-                        <label>For Rent</label>
-                        <input type="text" class="form-control" v-model="property.for_rent">
+                        <input type="radio" name="for_sale" v-model="property.for_sale" :value="1" /> For Sale
+                        <input type="radio" name="for_sale" v-model="property.for_sale" :value="0" /> For Rent
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>

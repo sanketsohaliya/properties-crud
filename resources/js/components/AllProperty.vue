@@ -22,6 +22,7 @@
                 <th>Property Type</th>
                 <th>For Sale</th>
                 <th>For Rent</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -41,8 +42,8 @@
                 <td>{{ property.num_bathrooms }}</td>
                 <td>{{ property.price }}</td>
                 <td>{{ property.property_type }}</td>
-                <td>{{ property.for_sale }}</td>
-                <td>{{ property.for_rent }}</td>
+                <td>{{ property.for_sale === 1 ? "Yes" : "No" }}</td>
+                <td>{{ property.for_sale === 1 ? "No" : "Yes" }}</td>
                 <td>
                     <div class="btn-group" role="group">
                         <router-link :to="{name: 'edit', params: { id: property.id }}" class="btn btn-success">Edit</router-link>

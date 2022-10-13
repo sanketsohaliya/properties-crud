@@ -24,14 +24,13 @@ return new class extends Migration
             $table->string('image_full');
             $table->string('image_thumbnail');
             $table->string('address');
-            $table->integer('latitude');
-            $table->integer('longitude');
+            $table->integer('latitude')->nullable();
+            $table->integer('longitude')->nullable();
             $table->integer('num_bedrooms');
             $table->integer('num_bathrooms');
             $table->string('price');
             $table->enum('property_type', ['Flat', 'Detatched', 'Semi-detached', 'Terraced', 'End of Terrace', 'Cottage', 'Bungalow']);
             $table->boolean('for_sale');
-            $table->boolean('for_rent');
             $table->timestamps();
         });
     }
