@@ -19,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('api')->group(function () {
+    Route::post('properties/{id}', 'App\Http\Controllers\PropertyController@update');
     Route::resource('properties', App\Http\Controllers\PropertyController::class);
 });

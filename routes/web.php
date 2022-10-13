@@ -29,7 +29,6 @@ Route::get('/upsert', function () {
         $property['postcode'] = is_numeric($property['postcode']) ? $property['postcode'] : NULL;
         $property['property_type'] = $property['property_type']['title'];
         $property['for_sale'] =  ($property['type'] === 'sale') ? 1 : 0;
-        $property['for_rent'] =  ($property['type'] === 'rent') ? 1 : 0;
         $db_property = Property::where('uuid', '=', $property['uuid'])->first();
         if (!empty($db_property)) {
             if ($db_property->updated_at->timestamp < strtotime($property['updated_at'])) 

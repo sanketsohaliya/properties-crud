@@ -20,11 +20,11 @@ class PropertyController extends Controller
             'county' => 'required',
             'country' => 'required',
             'town' => 'required',
-            'postcode' => 'required|integer',
+            'postcode' => 'integer',
             'description' => 'required',
             'address' => 'required',
-            'num_bedrooms' => 'required|integer|between:1,10',
-            'num_bathrooms' => 'required|integer|between:1,10',
+            'num_bedrooms' => 'required|integer|between:1,12',
+            'num_bathrooms' => 'required|integer|between:1,12',
             'price' => 'required|integer',
             'property_type' => ['required', Rule::in(['Flat', 'Detatched', 'Semi-detached', 'Terraced', 'End of Terrace', 'Cottage', 'Bungalow'])],
             'for_sale' => 'required',
@@ -44,10 +44,8 @@ class PropertyController extends Controller
         $property->postcode = $request->postcode;
         $property->description = $request->description;
         $property->address = $request->address;
-        $property->latitude = 333;
-        $property->longitude = 777;
         $property->image_full = '/storage/' . $file_path;
-        $property->image_thumbnail = 'temp';
+        $property->image_thumbnail = '/storage/' . $file_path;
         $property->num_bedrooms = $request->num_bedrooms;
         $property->num_bathrooms = $request->num_bathrooms;
         $property->price = $request->price;
@@ -63,6 +61,22 @@ class PropertyController extends Controller
     }
     public function update($id, Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'county' => 'required',
+            'country' => 'required',
+            'town' => 'required',
+            'description' => 'required',
+            'address' => 'required',
+            'num_bedrooms' => 'required|integer|between:1,12',
+            'num_bathrooms' => 'required|integer|between:1,12',
+            'price' => 'required|integer',
+            'property_type' => ['required', Rule::in(['Flat', 'Detatched', 'Semi-detached', 'Terraced', 'End of Terrace', 'Cottage', 'Bungalow'])],
+            'for_sale' => 'required',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(['errors' => $validator->errors()->all()[0]]);
+        }
         $property = Property::find($id);
         $property->county = $request->county;
         $property->country = $request->country;
@@ -70,17 +84,19 @@ class PropertyController extends Controller
         $property->postcode = $request->postcode;
         $property->description = $request->description;
         $property->address = $request->address;
-        $property->latitude = 333;
-        $property->longitude = 777;
-        $property->image_full = $request->image_full;
-        $property->image_thumbnail = $request->image_full;
+        if ($request->file()) {
+            $file_name = time().'_'.$request->file->getClientOriginalName();
+            $file_path = $request->file('file')->storeAs('uploads', $file_name, 'public');
+            $property->image_full = '/storage/' . $file_path;
+            $property->image_thumbnail = '/storage/' . $file_path;
+        }
         $property->num_bedrooms = $request->num_bedrooms;
         $property->num_bathrooms = $request->num_bathrooms;
         $property->price = $request->price;
         $property->property_type = $request->property_type;
         $property->for_sale = $request->for_sale;
         $property->save();
-        return response()->json('Property updated!');
+        return response()->json(["success" => "Property updated!"]);
     }
     public function destroy($id)
     {

@@ -1,8 +1,18 @@
 <template>
     <div>
         <h2 class="text-center">Properties List</h2>
- 
-        <table class="table">
+        <div>
+            <vue-good-table
+                :columns="columns"
+                :rows="rows"
+                v-on:cell-click="onCellClick"
+                :pagination-options="{
+                enabled: true,
+                position: 'top',
+            }">
+            </vue-good-table>
+        </div>
+        <!-- <table class="table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -33,7 +43,7 @@
                 <td>{{ property.town }}</td>
                 <td>{{ property.postcode }}</td>
                 <td>{{ property.description }}</td>
-                <td>{{ property.image_full }}</td>
+                <td><img :src=property.image_full height="150" /></td>
                 <td>{{ property.image_thumbnail }}</td>
                 <td>{{ property.address }}</td>
                 <td>{{ property.latitude }}</td>
@@ -52,15 +62,105 @@
                 </td>
             </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </template>
  
 <script>
     export default {
+        props: [],
         data() {
             return {
-                properties: []
+                properties: [],
+                columns: [
+                    {
+                        label: 'Id',
+                        field: 'id',
+                    },
+                    {
+                        label: 'County',
+                        field: 'county',
+                    },
+                    {
+                        label: 'Country',
+                        field: 'country',
+                    },
+                    {
+                        label: 'Town',
+                        field: 'town',
+                    },
+                    {
+                        label: 'Postcode',
+                        field: 'postcode',
+                    },
+                    {
+                        label: 'Description',
+                        field: 'description',
+                        width: '400px'
+                    },
+                    {
+                        label: 'Image',
+                        field: 'image_full',
+                        html: true,
+                    },
+                    {
+                        label: 'Thumbnail',
+                        field: 'image_thumbnail',
+                        html: true
+                    },
+                    {
+                        label: 'Address',
+                        field: 'address',
+                    },
+                    {
+                        label: 'Latitude',
+                        field: 'latitude',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Longitude',
+                        field: 'longitude',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Number Of Bedrooms',
+                        field: 'num_bedrooms',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Number Of Bathrooms',
+                        field: 'num_bathrooms',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Price',
+                        field: 'price',
+                        type: 'number',
+                    },
+                    {
+                        label: 'Property Type',
+                        field: 'property_type',
+                    },
+                    {
+                        label: 'For Sale',
+                        field: 'sale',
+                    },
+                    {
+                        label: 'For Rent',
+                        field: 'rent',
+                    },
+                    {
+                        label: 'Edit',
+                        field: 'edit',
+                        html: true
+                    },
+                    {
+                        label: 'Delete',
+                        field: 'delete',
+                        html: true
+                    }
+                ],
+                rows: [ ],
             }
         },
         created() {
@@ -68,16 +168,38 @@
                 .get('http://localhost:8000/api/properties/')
                 .then(response => {
                     this.properties = response.data;
+                    this.properties.forEach(function(property) {
+                        property.image_full = "<img height='100' width='100' src='" + property.image_full + "' />";
+                        property.image_thumbnail = "<img src='" + property.image_thumbnail + "' />";
+                        property.sale = property.for_sale === 1 ? "Yes" : "No";
+                        property.rent = property.for_sale === 1 ? "No" : "Yes";
+                        property.edit = "<button class='btn btn-info'>Edit</button>";
+                        property.delete = "<button class='btn btn-danger'>Delete</button>";
+                    });
+                    this.rows = this.properties;
                 });
         },
         methods: {
-            deleteProperty(id) { 
-                axios
-                    .delete(`http://localhost:8000/api/properties/${id}`)
+            onCellClick(params) {
+                if (params.column.field === "edit") {
+                    this.$router.push({name: 'edit', params: { id: params.row.id }});
+                }
+                if (params.column.field === "delete") {
+                    axios
+                    .delete(`http://localhost:8000/api/properties/${params.row.id}`)
                     .then(response => {
-                        let i = this.properties.map(data => data.id).indexOf(id);
+                        let i = this.properties.map(data => data.id).indexOf(params.row.id);
                         this.properties.splice(i, 1)
                     });
+                }
+            },
+            deleteProperty(id) { 
+                axios
+                .delete(`http://localhost:8000/api/properties/${id}`)
+                .then(response => {
+                    let i = this.properties.map(data => data.id).indexOf(id);
+                    this.properties.splice(i, 1)
+                });
             }
         }
     }

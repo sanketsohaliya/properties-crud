@@ -2,7 +2,7 @@
     <div>
         <h3 class="text-center">Create Property</h3>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mx-auto">
                 <form @submit.prevent="addProperty">
                     <div class="form-group">
                         <label>County</label>
@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label>Price</label>
                         <input type="text" class="form-control" v-model="property.price">
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <label>Select Property Type: </label>
                         <select v-model="property.property_type">
@@ -56,12 +56,12 @@
                             <option>Cottage</option>
                             <option>Bungalow</option>
                         </select>
-                    </div>
+                    </div><br />
                     <div class="form-group">
                         <input type="radio" name="for_sale" v-model="property.for_sale" :value="1" /> For Sale
                         <input type="radio" name="for_sale" v-model="property.for_sale" :value="0" /> For Rent
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    </div><br />
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Create</button>
                 </form>
             </div>
         </div>
@@ -84,17 +84,15 @@
                     form_data.append(key, this.property[key]);
                 }
                 axios
-                    .post('http://localhost:8000/api/properties', form_data)
-                    .then(response => {
-                        if (response.data.hasOwnProperty('errors')) {
-                            alert(response.data.errors);
-                        } else {
-                            alert(response.data.success);
-                            this.$router.push({name: 'home'});
-                        }
-                    })
-                    .catch(err => console.log(err))
-                    .finally(() => this.loading = false)
+                .post('http://localhost:8000/api/properties', form_data)
+                .then(response => {
+                    if (response.data.hasOwnProperty('errors')) {
+                        alert(response.data.errors);
+                    } else {
+                        alert(response.data.success);
+                        this.$router.push({name: 'home'});
+                    }
+                })
             },
             onChange(e) {
                 this.file = e.target.files[0];
