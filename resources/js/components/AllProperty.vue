@@ -7,62 +7,15 @@
                 :rows="rows"
                 v-on:cell-click="onCellClick"
                 :pagination-options="{
-                enabled: true,
-                position: 'top',
-            }">
+                    enabled: true,
+                    position: 'top',
+                }"
+                :search-options="{
+                    enabled: true,
+                }"
+            >
             </vue-good-table>
         </div>
-        <!-- <table class="table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>County</th>
-                <th>Country</th>
-                <th>Town</th>
-                <th>Postcode</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Thumbnail</th>
-                <th>Address</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Number Of Bedrooms</th>
-                <th>Number of Bathrooms</th>
-                <th>Price</th>
-                <th>Property Type</th>
-                <th>For Sale</th>
-                <th>For Rent</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="property in properties" :key="property.id">
-                <td>{{ property.id }}</td>
-                <td>{{ property.county }}</td>
-                <td>{{ property.country }}</td>
-                <td>{{ property.town }}</td>
-                <td>{{ property.postcode }}</td>
-                <td>{{ property.description }}</td>
-                <td><img :src=property.image_full height="150" /></td>
-                <td>{{ property.image_thumbnail }}</td>
-                <td>{{ property.address }}</td>
-                <td>{{ property.latitude }}</td>
-                <td>{{ property.longitude }}</td>
-                <td>{{ property.num_bedrooms }}</td>
-                <td>{{ property.num_bathrooms }}</td>
-                <td>{{ property.price }}</td>
-                <td>{{ property.property_type }}</td>
-                <td>{{ property.for_sale === 1 ? "Yes" : "No" }}</td>
-                <td>{{ property.for_sale === 1 ? "No" : "Yes" }}</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <router-link :to="{name: 'edit', params: { id: property.id }}" class="btn btn-success">Edit</router-link>
-                        <button class="btn btn-danger" @click="deleteProperty(property.id)">Delete</button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table> -->
     </div>
 </template>
  
@@ -76,6 +29,7 @@
                     {
                         label: 'Id',
                         field: 'id',
+                        type: 'number'
                     },
                     {
                         label: 'County',
@@ -90,13 +44,14 @@
                         field: 'town',
                     },
                     {
-                        label: 'Postcode',
-                        field: 'postcode',
-                    },
-                    {
                         label: 'Description',
                         field: 'description',
                         width: '400px'
+                    },
+                    {
+                        label: 'Address',
+                        field: 'address',
+                        width: '200px'
                     },
                     {
                         label: 'Image',
@@ -107,10 +62,6 @@
                         label: 'Thumbnail',
                         field: 'image_thumbnail',
                         html: true
-                    },
-                    {
-                        label: 'Address',
-                        field: 'address',
                     },
                     {
                         label: 'Latitude',
@@ -140,6 +91,10 @@
                     {
                         label: 'Property Type',
                         field: 'property_type',
+                    },
+                    {
+                        label: 'Postcode',
+                        field: 'postcode',
                     },
                     {
                         label: 'For Sale',

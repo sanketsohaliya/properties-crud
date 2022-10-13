@@ -109,9 +109,8 @@ class PropertyController extends Controller
     }
     public function upsert()
     {
-        dd('done');
         $properties = [];
-        $response = Http::get("https://trial.craig.mtcserver15.com/api/properties?page[number]=124&page[size]=100&api_key=3NLTTNlXsi6rBWl7nYGluOdkl2htFHug");
+        $response = Http::get("https://trial.craig.mtcserver15.com/api/properties?page[number]=122&page[size]=100&api_key=3NLTTNlXsi6rBWl7nYGluOdkl2htFHug");
         while(!empty($response['next_page_url'])) {
             $properties = [...$properties, ...$response->json()['data']];
             $response = Http::get($response['next_page_url']);
